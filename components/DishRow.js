@@ -3,11 +3,31 @@ import React, { useState } from "react";
 import Currency from "react-currency-formatter";
 import { urlFor } from "../sanity";
 import { MinusCircleIcon, PlusCircleIcon } from "react-native-heroicons/solid";
+import {
+  addToBasket,
+  removeFromBasket,
+  selectBasketItemsWithId,
+} from "../features/basketSlice";
+import { useDispatch, useSelector } from "react-redux";
 
 const DishRow = ({ key, id, name, description, price, image }) => {
   const [isPressed, setIsPressed] = useState(false);
 
-  const items = [1, 2, 3];
+  const items = useSelector((state) => selectBasketItemsWithId(state, id));
+
+  console.log(items);
+
+  const dispatch = useDispatch();
+
+  const addItemToBasket = () => {
+    dispatch(addToBasket({ id, name, description, price, image }));
+  };
+
+  const removeItemFromBasket = () => {
+    if (!items.length > 0) return;
+
+    dispatch(removeFromBasket({ id }));
+  };
 
   return (
     <TouchableOpacity
@@ -15,6 +35,7 @@ const DishRow = ({ key, id, name, description, price, image }) => {
       className={`bg-white border p-4 border-gray-200 ${
         isPressed && "border-b-0"
       }`}
+      key={key}
     >
       <View className="flex-row">
         <View className="flex-1 pr-2">
@@ -43,7 +64,7 @@ const DishRow = ({ key, id, name, description, price, image }) => {
           <View className="flex-row items-center space-x-2 pb-0 pt-2">
             <TouchableOpacity
               disabled={!items.length}
-              // onPress={removeItemFromBasket}
+              onPress={removeItemFromBasket}
             >
               <MinusCircleIcon
                 color={items.length > 0 ? "#00CCBB" : "gray"}
@@ -51,9 +72,7 @@ const DishRow = ({ key, id, name, description, price, image }) => {
               />
             </TouchableOpacity>
             <Text className="">{items?.length}</Text>
-            <TouchableOpacity
-            //  onPress={addItemToBasket}
-            >
+            <TouchableOpacity onPress={addItemToBasket}>
               <PlusCircleIcon color="#00CCBB" size={40} />
             </TouchableOpacity>
           </View>

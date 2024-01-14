@@ -7,6 +7,8 @@ import RestaurantScreen from "./screens/RestaurantScreen";
 import LoginScreen from "./screens/LoginScreen";
 import UserScreen from "./screens/UserScreen";
 import { useState } from "react";
+import { store } from "./store";
+import { Provider } from "react-redux";
 
 NativeWindStyleSheet.setOutput({
   default: "native",
@@ -15,32 +17,34 @@ NativeWindStyleSheet.setOutput({
 const Stack = createNativeStackNavigator();
 
 export default function App() {
-  const [isLogin, setIsLogin] = useState(false);
+  const [isLogin, setIsLogin] = useState(true);
 
   return (
     <NavigationContainer>
-      <TailwindProvider>
-        <Stack.Navigator>
-          {/* Screens */}
-          {/* Only show LoginScreen if isLogin is false */}
-          {!isLogin && (
-            <Stack.Screen name="Login">
-              {(props) => <LoginScreen {...props} setIsLogin={setIsLogin} />}
-            </Stack.Screen>
-          )}
-
-          {/* Show other screens when isLogin is true */}
-          {isLogin && (
-            <>
-              <Stack.Screen name="Home" component={HomeScreen} />
-              <Stack.Screen name="User">
-                {(props) => <UserScreen {...props} setIsLogin={setIsLogin} />}
+      <Provider store={store}>
+        <TailwindProvider>
+          <Stack.Navigator>
+            {/* Screens */}
+            {/* Only show LoginScreen if isLogin is false */}
+            {!isLogin && (
+              <Stack.Screen name="Login">
+                {(props) => <LoginScreen {...props} setIsLogin={setIsLogin} />}
               </Stack.Screen>
-              <Stack.Screen name="Restaurant" component={RestaurantScreen} />
-            </>
-          )}
-        </Stack.Navigator>
-      </TailwindProvider>
+            )}
+
+            {/* Show other screens when isLogin is true */}
+            {isLogin && (
+              <>
+                <Stack.Screen name="Home" component={HomeScreen} />
+                <Stack.Screen name="User">
+                  {(props) => <UserScreen {...props} setIsLogin={setIsLogin} />}
+                </Stack.Screen>
+                <Stack.Screen name="Restaurant" component={RestaurantScreen} />
+              </>
+            )}
+          </Stack.Navigator>
+        </TailwindProvider>
+      </Provider>
     </NavigationContainer>
   );
 }
