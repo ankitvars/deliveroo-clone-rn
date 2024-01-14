@@ -13,7 +13,7 @@ import {
   ArrowRightEndOnRectangleIcon,
 } from "react-native-heroicons/outline";
 
-const UserScreen = () => {
+const UserScreen = ({ setIsLogin }) => {
   const navigation = useNavigation();
   const [isDarkMode, setDarkMode] = useState(false);
 
@@ -103,7 +103,9 @@ const UserScreen = () => {
         </TouchableOpacity>
         <TouchableOpacity
           className="flex-row items-center mb-4 border-b border-gray-300 space-x-2"
-          onPress={() => navigation.navigate("Logout")}
+          onPress={() => {
+            setIsLogin(false);
+          }}
         >
           <ArrowRightEndOnRectangleIcon
             className="w-6 h-6 mr-2"
