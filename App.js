@@ -4,6 +4,8 @@ import { TailwindProvider } from "tailwindcss-react-native";
 import HomeScreen from "./screens/HomeScreen";
 import { NativeWindStyleSheet } from "nativewind";
 import RestaurantScreen from "./screens/RestaurantScreen";
+import LoginScreen from "./screens/LoginScreen";
+import UserScreen from "./screens/UserScreen";
 
 NativeWindStyleSheet.setOutput({
   default: "native",
@@ -18,6 +20,8 @@ export default function App() {
         <Stack.Navigator>
           {/* Screens */}
           <Stack.Screen name="Home" component={HomeScreen} />
+          <Stack.Screen name="User" component={UserScreen} />
+          <Stack.Screen name="Login" component={LoginScreen} />
           <Stack.Screen name="Restaurant" component={RestaurantScreen} />
         </Stack.Navigator>
       </TailwindProvider>

@@ -57,7 +57,13 @@ const HomeScreen = () => {
             <ChevronDownIcon size={20} color="#00CCBB" />
           </Text>
         </View>
-        <UserIcon size={35} color="#00CCBB" />
+        <UserIcon
+          size={35}
+          color="#00CCBB"
+          onPress={() => {
+            navigation.navigate("User");
+          }}
+        />
       </View>
 
       {/* Search */}
