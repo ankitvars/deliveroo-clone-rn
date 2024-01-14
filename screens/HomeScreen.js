@@ -32,7 +32,6 @@ const HomeScreen = () => {
     sanityClient
       .fetch(`*[_type == "featured"] {..., restaurants[]->{..., dishes[]->}}`)
       .then((data) => {
-        console.log(data);
         setFeaturedCategories(data);
       })
       .catch((err) => {
