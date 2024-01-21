@@ -10,6 +10,8 @@ import { useState } from "react";
 import { store } from "./store";
 import { Provider } from "react-redux";
 import BasketScreen from "./screens/BasketScreen";
+import PreparingOrderScreen from "./screens/PreparingOrderScreen";
+import DeliveryScreen from "./screens/DeliveryScreen";
 
 NativeWindStyleSheet.setOutput({
   default: "native",
@@ -46,6 +48,22 @@ export default function App() {
                   component={BasketScreen}
                   options={{
                     presentation: "modal",
+                    headerShown: false,
+                  }}
+                />
+                <Stack.Screen
+                  name="PreparingOrderScreen"
+                  component={PreparingOrderScreen}
+                  options={{
+                    presentation: "fullScreenModal",
+                    headerShown: false,
+                  }}
+                />
+                <Stack.Screen
+                  name="Delivery"
+                  component={DeliveryScreen}
+                  options={{
+                    presentation: "fullScreenModal",
                     headerShown: false,
                   }}
                 />
