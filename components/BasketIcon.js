@@ -7,8 +7,10 @@ import Currency from "react-currency-formatter";
 
 const BasketIcon = () => {
   const items = useSelector(selectBasketItems);
-  const navigate = useNavigation();
+  const navigation = useNavigation();
   const basketTotal = useSelector(selectBasketTotal);
+
+  if (items.length === 0) return null;
 
   return (
     <View className="absolute bottom-10 w-full z-50">
@@ -16,7 +18,10 @@ const BasketIcon = () => {
         <Text className="text-white font-extrabold text-lg bg-[#01A296] py-1 px-2">
           {items.length}
         </Text>
-        <Text className="flex-1 text-white font-extrabold text-lg text-center">
+        <Text
+          className="flex-1 text-white font-extrabold text-lg text-center cursor-pointer"
+          onPress={() => navigation.navigate("Basket")}
+        >
           View Basket
         </Text>
         <Text className="text-lg text-white font-extrabold">
